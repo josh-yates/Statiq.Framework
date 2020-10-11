@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.PixelFormats;
@@ -298,6 +298,12 @@ namespace Statiq.Images
             }
 
             _operations.Peek().Enqueue(new ActionOperation(null, x => x.InsertPrefix(prefix)));
+            return this;
+        }
+
+        public MutateImage ApplyWatermark(string content, Font font)
+        {
+            _operations.Peek().Enqueue(new WatermarkOperation(content, font));
             return this;
         }
 
